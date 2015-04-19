@@ -15,15 +15,18 @@ class Usuario {
 	double altura
 	DateTime fechaNacimiento
 	String rutina
-	List<CondicionPreexistente> condicionesPreexistentes
+	
+	var String[] condicionesPreexistentes
+	//List<CondicionPreexistente> condicionesPreexistentes
 	String sexo
 	var String[] preferenciasAlimenticias //Esto si va a tener que ser una clase, hay que ver que piden los puntos mas adelante.. PENDIENTE
 
 	Usuario unUsuario
+	List<Receta> recetasCreadas
 
-	def void initialize() {
+	/*def void initialize() {
 		condicionesPreexistentes = new ArrayList<CondicionPreexistente>		
-	}
+	}*/
 	
 	def boolean esValido() {
 		validarDatosObligatorios() // tiene los siguientes campos obligatorios: nombre, peso, altura, fecha de nacimiento, rutina

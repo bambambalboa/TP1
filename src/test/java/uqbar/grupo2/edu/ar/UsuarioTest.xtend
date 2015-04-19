@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 class UsuarioTest {
 
 	Usuario Juan
+	Receta unaReceta
 
 	@Before
 	def void initialize() {
@@ -20,6 +21,19 @@ class UsuarioTest {
 		Juan.condicionesPreexistentes = newArrayList("hipertenso", "superinteligencia", "vegano") //, "diabetico")
 		Juan.sexo = "MASCULINO"
 		Juan.preferenciasAlimenticias = newArrayList("pescado", "mariscos", "frutas") //, "carne")
+		Juan.recetasCreadas = newArrayList()
+
+		unaReceta = new Receta
+		unaReceta.nombre = "Pollo al horno con papas"
+		unaReceta.listaDeIngredientes = newArrayList("pollo", "papas")
+		unaReceta.listaDeCondimentos = newArrayList("sal", "mostaza")
+		unaReceta.procedimientoPreparacion = "Procedimiento..."
+		unaReceta.esInadecuado = newArrayList("vegano")
+		unaReceta.caloriasTotales = 800 //Acá hay que generar un método que haga el cálculo de calorias.
+		unaReceta.dificultad = "Dificl"
+		unaReceta.temporada = "Todo el año"
+
+		Juan.recetasCreadas.add(unaReceta)
 	}
 
 	@Test
@@ -32,9 +46,15 @@ class UsuarioTest {
 	def void calcularIMC() { //Calculo de IMC de un Usuario
 		System.out.println("El IMC del usuario es: " + Juan.indiceDeMasaCorporal())
 	}
-	
-	def void sigueRutinaSaludable(){
+
+	def void sigueRutinaSaludable() {
 		Assert.assertTrue(Juan.rutinaSaludable())
+	}
+
+	@Test
+	def void validarReceta() {
+		Assert.assertTrue(unaReceta.esValido())
+
 	}
 
 }
