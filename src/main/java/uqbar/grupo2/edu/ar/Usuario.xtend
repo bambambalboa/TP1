@@ -14,12 +14,13 @@ class Usuario {
 	DateTime fechaNacimiento
 	String rutina
 	var String[] condicionesPreexistentes //Muchachos despues tendriamos que pasar esto a una lista de objetos... Crear la clase Condicion:
-										//List<Condicion> condicionesPreexistentes
-										//Aunque creo que no se usa para nada luego, PENDIENTE
+
+	//List<Condicion> condicionesPreexistentes
+	//Aunque creo que no se usa para nada luego, PENDIENTE
 	String sexo
 	var String[] preferenciasAlimenticias //Esto si va a tener que ser una clase, hay que ver que piden los puntos mas adelante.. PENDIENTE
 
-
+	Usuario unUsuario
 
 	def boolean esValido() {
 		validarDatosObligatorios() // tiene los siguientes campos obligatorios: nombre, peso, altura, fecha de nacimiento, rutina
@@ -29,7 +30,7 @@ class Usuario {
 		validarVeganicidad() //si el usuario es vegano no puede aparecer ninguna de estas palabras como preferencia: “pollo”, “carne”, “chivito”, “chori”
 		validarFecha() //la fecha de nacimiento debe ser una fecha anterior a la del día de hoy
 
-		true//Si paso todas las validaciones, si, es valido...
+		true //Si paso todas las validaciones, si, es valido...
 	}
 
 	def private validarDatosObligatorios() {
@@ -81,4 +82,14 @@ class Usuario {
 		}
 	}
 
+	// Comienzo de Punto 2
+	
+	def indiceDeMasaCorporal() {
+		this.peso / (this.altura * this.altura)
+	}
+	
+	def boolean rutinaSaludable() {
+		// No me sale este codigo tan bobo.
+		false
+	} 
 }
