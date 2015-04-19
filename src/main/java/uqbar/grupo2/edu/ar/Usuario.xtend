@@ -1,8 +1,10 @@
-package uqbar.grupo2.edu.ar
+   package uqbar.grupo2.edu.ar
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
 import uqbar.grupo2.edu.ar.exceptions.BusinessException
+import java.util.ArrayList
+import java.util.List
 
 import static uqbar.grupo2.edu.ar.DateUtil.*
 
@@ -13,15 +15,16 @@ class Usuario {
 	double altura
 	DateTime fechaNacimiento
 	String rutina
-	var String[] condicionesPreexistentes //Muchachos despues tendriamos que pasar esto a una lista de objetos... Crear la clase Condicion:
-
-	//List<Condicion> condicionesPreexistentes
-	//Aunque creo que no se usa para nada luego, PENDIENTE
+	List<CondicionPreexistente> condicionesPreexistentes
 	String sexo
 	var String[] preferenciasAlimenticias //Esto si va a tener que ser una clase, hay que ver que piden los puntos mas adelante.. PENDIENTE
 
 	Usuario unUsuario
 
+	def void initialize() {
+		condicionesPreexistentes = new ArrayList<CondicionPreexistente>		
+	}
+	
 	def boolean esValido() {
 		validarDatosObligatorios() // tiene los siguientes campos obligatorios: nombre, peso, altura, fecha de nacimiento, rutina
 		validarNombre() //Se debe validar que el nombre tenga mas de 4 caracteres...
@@ -82,14 +85,41 @@ class Usuario {
 		}
 	}
 
-	// Comienzo de Punto 2
-	
+	// Comienzo de Punto 2	
 	def indiceDeMasaCorporal() {
 		this.peso / (this.altura * this.altura)
 	}
 	
+	def validarRangoIndiceIMC() {
+		if (this.indiceDeMasaCorporal() > 18 && this.indiceDeMasaCorporal() <30 ){
+			return true
+			}
+		else
+			return false			
+	}
+	
 	def boolean rutinaSaludable() {
-		// No me sale este codigo tan bobo.
-		false
-	} 
-}
+		if (!this.validarRangoIndiceIMC()) {
+			return false
+			}
+		if (this.tieneCondicionesPreexistentes()) {
+			return false
+		}
+		else
+			{
+				return true
+			}
+		}
+	
+	def tieneCondicionesPreexistentes() {
+		if(condicionesPreexistentes.size > 0){
+				return true
+			}
+		else{
+			return false
+		}
+	}
+	
+		//false 
+	}
+	
